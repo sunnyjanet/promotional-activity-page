@@ -81,7 +81,7 @@ export default {
   },
   methods: {
     handleClick () {
-
+      console.log('测试分支')
     }
   }
 }
