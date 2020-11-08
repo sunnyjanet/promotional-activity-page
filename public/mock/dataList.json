@@ -1,0 +1,55 @@
+{
+  "ret": true,
+  "data": {
+    "activityTitle":"11月哪里值得玩-2020", 
+    "navCityList": [{
+      "id": 0,
+      "cityName": "上海"
+    },{
+      "id": 1,
+      "cityName": "北京"
+    },{
+      "id": 2,
+      "cityName": "南京"
+    },{
+      "id": 3,
+      "cityName": "广州"
+    },{
+      "id": 4,
+      "cityName": "杭州"
+    },{
+      "id": 5,
+      "cityName": "天津"
+    },{
+      "id": 6,
+      "cityName": "成都"
+    },{
+      "id": 7,
+      "cityName": "深圳"
+    },{
+      "id": 8,
+      "cityName": "武汉"
+    },{
+      "id": 9,
+      "cityName": "郑州"
+    },{
+      "id": 10,
+      "cityName": "西安"
+    },{
+      "id": 11,
+      "cityName": "重庆"
+    },{
+      "id": 12,
+      "cityName": "沈阳"
+    },{
+      "id": 13,
+      "cityName": "无锡"
+    },{
+      "id": 14,
+      "cityName": "宁波"
+    },{
+      "id": 15,
+      "cityName": "苏州"
+    }]
+  }
+}
