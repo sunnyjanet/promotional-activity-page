@@ -24,11 +24,11 @@ export default {
   .home {
     min-width: 1280px;
     position: relative;
-    overflow: hidden;
     min-height: 90vh;
     .bannerImgWrapper {
       display: flex;
       justify-content: center;
+      overflow: hidden;
     }
   }
 </style>

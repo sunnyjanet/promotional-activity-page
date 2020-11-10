@@ -1,5 +1,5 @@
 <template>
-    <div class="img-pop-card">
+    <div class="pop-box-card">
       <div
       class="card-block"
       v-for="(item, index) in cardBlockDataList"
@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: 'ImgPopCard',
+  name: 'PopBoxCard',
   data () {
     return {
       popBoxHidden: true,
@@ -102,61 +102,56 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .img-pop-card {
-    position: relative;
-    height: 610px;
-    .card-block {
+  .card-block {
+    position: absolute;
+    cursor: pointer;
+    .pop-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.1);
+    z-index: 999;
+      &.popHide {
+      display: none;
+      }
+      .pop-conent {
+      width: 700px;
+      height: 500px;
+      .pop-title {
+      height: 70px;
+      line-height: 70px;
+      color: #fff;
+      font-size: 30px;
+      text-align: center;
+      background-color: #d31616;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      }
+      .pop-text {
+      width: 650px;
+      height: 350px;
+      padding: 25px;
+      font-size: 16px;
+      color: #464646;
+      line-height: 1.8;
+      overflow: auto;
+      background-color: #fff;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      }
+      .pop-close-icon {
+      display: block;
       position: absolute;
-      .pop-mask {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: rgba(0,0,0,0.1);
-      z-index: 999;
-        &.popHide {
-        display: none;
-        }
-        .pop-conent {
-        position: relative;
-        width: 700px;
-        height: 500px;
-        .pop-title {
-        height: 70px;
-        line-height: 70px;
-        color: #fff;
-        font-size: 30px;
-        text-align: center;
-        background-color: #d31616;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        }
-        .pop-text {
-        width: 650px;
-        height: 350px;
-        padding: 25px;
-        font-size: 16px;
-        color: #464646;
-        line-height: 1.8;
-        overflow: auto;
-        background-color: #fff;
-        border-bottom-left-radius: 20px;
-        border-bottom-right-radius: 20px;
-        }
-        .pop-close-icon {
-        display: block;
-        position: absolute;
-        top: 15px;
-        right: 20px;
-        cursor: pointer;
-        }
-        }
+      top: 15px;
+      right: 20px;
+      cursor: pointer;
+      }
       }
     }
   }
-
 </style>
