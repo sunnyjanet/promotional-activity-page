@@ -1,67 +1,46 @@
 <template>
-  <div class="pop-lottery-card">
+  <div class="lottery-apply" v-if="!showLotteryList">
+    <input
+      type="text"
+      v-model="telInput"
+      class="lottery-tel"
+      placeholder="输入手机号码"
+    />
+    <input
+      type="text"
+      v-model="checkCodeInput"
+      class="lottery-check-code"
+      placeholder="输入验证码"
+    />
     <div
-      class="card-block"
-      v-for="(item, index) in cardBlockDataList"
-      :key="index"
-      :style="item.cardStyle"
-      @click="handleImgLinkClick"
+      class="lottery-get-check"
+      :class="{ sendingClass: isSending }"
+      @click.stop="handleSendingClick"
     >
-      <img class="img-link" :src="item.imgUrl" />
-      <div class="lottery-mask" :class="{ hide: isHide }">
-        <div class="lottery-apply" v-if="!showLotteryList">
-          <input
-            type="text"
-            v-model="telInput"
-            class="lottery-tel"
-            placeholder="输入手机号码"
-          />
-          <input
-            type="text"
-            v-model="checkCodeInput"
-            class="lottery-check-code"
-            placeholder="输入验证码"
-          />
-          <div
-            class="lottery-get-check"
-            :class="{ sendingClass: isSending }"
-            @click.stop="handleSendingClick"
-          >
-            <span v-if="isSending">{{ totalTime | transfromTime }}</span>
-            <span v-else>发送验证码</span>
-          </div>
-          <div class="lottery-submit" @click.stop="handleSubmitClick">
-            立即<br />领取
-          </div>
-          <img
-            class="lottery-close-icon"
-            src="https://m.tuniucdn.com/fb2/t1/G1/M00/CF/E2/Cii9EFjsTVqIfK1oAAAHBq3zLhkAAJZtwP_-NsAAAcl085.png"
-            @click.stop="handleCloseClick"
-          />
-        </div>
-        <lottery-list v-else class="lottery-list" @closeLotteryList="handleCloseClick" :lotteryGottenBefore="lotteryGottenBefore"></lottery-list>
-      </div>
+      <span v-if="isSending">{{ totalTime | transfromTime }}</span>
+      <span v-else>发送验证码</span>
     </div>
+    <div class="lottery-submit" @click.stop="handleSubmitClick">
+      立即<br />领取
+    </div>
+    <img
+      class="lottery-close-icon"
+      src="https://m.tuniucdn.com/fb2/t1/G1/M00/CF/E2/Cii9EFjsTVqIfK1oAAAHBq3zLhkAAJZtwP_-NsAAAcl085.png"
+      @click.stop="handleCloseClick"
+    />
   </div>
 </template>
 
 <script>
-import LotteryList from './LotteryList'
 export default {
-  name: 'PopLotteryCard',
-  components: {
-    LotteryList
-  },
+  name: 'LotteryApply',
   data () {
     return {
       telInput: '', // 输入的手机号
       checkCodeInput: '', // 输入的验证码
       totalTime: 60, // 默认的倒计时总时间
-      isHide: true, // 活动弹框mask是否隐藏
       isSending: false, // 是否在发送验证码
       sendingTimer: null, // 发送验证码的60秒计时器
-      showLotteryList: false, // 是否展示lottery-list弹框
-      lotteryGottenBefore: true, // 用户是否已领取优惠
       sentCodeCounts: [
         {
           tel: '15805199000',
@@ -74,19 +53,6 @@ export default {
         {
           tel: '15805199055',
           counts: '4'
-        }
-      ],
-      cardBlockDataList: [
-        {
-          id: 0,
-          cardStyle: {
-            width: '342px',
-            height: '68px',
-            top: '521px',
-            left: '462px'
-          },
-          imgUrl:
-            'https://m3.tuniucdn.com/fb2/t1/G6/M00/25/27/Cii-U18G5VOIDa9NAAAE3JsBymEAAERMQP_-aYAAAT0241.png'
         }
       ]
     }
@@ -104,17 +70,6 @@ export default {
           this.totalTime = 60
         }
       }, 1000)
-    },
-    handleImgLinkClick () {
-      // 从后端获得用户是否已领取优惠
-      // 如果是（用lotteryGottenBefore：true模拟）,直接弹出lottery-list，告知已领取；
-      // 如果不是用lotteryGottenBefore：false模拟），弹出lottery-apply页面，进行验证和领取。
-      if (this.lotteryGottenBefore) {
-        this.showLotteryList = true
-      } else {
-        this.showLotteryList = false
-      }
-      this.isHide = false
     },
     handleSendingClick () {
       if (this.isSending === true) {
@@ -153,13 +108,13 @@ export default {
       }
     },
     handleCloseClick () {
-      this.isHide = true
+      this.$emit('handleCloseClick')
     },
     handleSubmitClick () {
       // 传字段给后端，后端将优惠活动绑定到用户名下，优惠领取完成！
       // 下面用写死的666作为弹出lottery-list，通知客户优惠已领取。
       if (this.checkCodeInput === '666') {
-        this.showLotteryList = true
+        this.$emit('showLotteryList')
       } else {
         this.$message({
           message: '验证码错误',
@@ -168,9 +123,6 @@ export default {
           center: 'true'
         })
       }
-    },
-    handleshowLotteryList () {
-      this.showLotteryList = true
     }
   },
   filters: {

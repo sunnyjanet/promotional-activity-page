@@ -12,7 +12,7 @@
         :src="item.imgUrl"
         >
         <div class="pop-mask" :class="{popHide: popBoxHidden}">
-          <div class="pop-conent">
+          <div class="pop-content">
             <div class="pop-title">{{popBoxData.popTitle}}</div>
             <div class="pop-text" v-html="popBoxData.popText"></div>
             <img class="pop-close-icon" :src="popBoxData.closeIconUrl" @click.stop="handleCloseClick"/>
@@ -119,7 +119,8 @@ export default {
       &.popHide {
       display: none;
       }
-      .pop-conent {
+      .pop-content {
+      position: relative;
       width: 700px;
       height: 500px;
       .pop-title {
