@@ -4,7 +4,7 @@
       <span v-if="!lotteryGottenBefore">领取成功</span>
       <span v-else>您已领取</span>
     </div>
-    <img class="lottery-list-close" @click.stop="closeLotteryList" src="https://m.tuniucdn.com/fb2/t1/G1/M00/CF/E2/Cii9EFjsTVqIfK1oAAAHBq3zLhkAAJZtwP_-NsAAAcl085.png" />
+    <img class="lottery-list-close" @click.stop="handleClose" src="https://m.tuniucdn.com/fb2/t1/G1/M00/CF/E2/Cii9EFjsTVqIfK1oAAAHBq3zLhkAAJZtwP_-NsAAAcl085.png" />
     <div class="lottery-list-content">
       <div class="lottery-item" v-for="(item, index) of lotteryListData" :key="index">
         <div class="discount-money">{{item.discountMoney}}</div>
@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="lottery-list-tip">请到我的钱包-优惠券查看券使用规则</div>
-    <div class="lottery-use" @click.stop="closeLotteryList" >立即使用</div>
+    <div class="lottery-use" @click.stop="handleClose" >立即使用</div>
   </div>
 </template>
 
@@ -40,8 +40,8 @@ export default {
     }
   },
   methods: {
-    closeLotteryList () {
-      this.$emit('closeLotteryList')
+    handleClose () {
+      this.$emit('clickClose')
     }
   }
 }

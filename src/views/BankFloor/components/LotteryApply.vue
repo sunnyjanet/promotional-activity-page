@@ -1,5 +1,5 @@
 <template>
-  <div class="lottery-apply" v-if="!showLotteryList">
+  <div class="lottery-apply">
     <input
       type="text"
       v-model="telInput"
@@ -26,7 +26,7 @@
     <img
       class="lottery-close-icon"
       src="https://m.tuniucdn.com/fb2/t1/G1/M00/CF/E2/Cii9EFjsTVqIfK1oAAAHBq3zLhkAAJZtwP_-NsAAAcl085.png"
-      @click.stop="handleCloseClick"
+      @click.stop="handleClose"
     />
   </div>
 </template>
@@ -107,14 +107,14 @@ export default {
         }
       }
     },
-    handleCloseClick () {
-      this.$emit('handleCloseClick')
+    handleClose () {
+      this.$emit('clickClose')
     },
     handleSubmitClick () {
       // 传字段给后端，后端将优惠活动绑定到用户名下，优惠领取完成！
       // 下面用写死的666作为弹出lottery-list，通知客户优惠已领取。
       if (this.checkCodeInput === '666') {
-        this.$emit('showLotteryList')
+        this.$emit('showLotteryListEvent')
       } else {
         this.$message({
           message: '验证码错误',
@@ -151,94 +151,72 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-.card-block {
-  position: absolute;
-  cursor: pointer;
-  .img-link {
-    width: 100%;
-  }
-  .lottery-mask {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-    .lottery-apply {
-      position: relative;
-      width: 700px;
-      height: 506px;
-      background: url("https://m.tuniucdn.com/fb2/t1/G2/M00/74/D8/Cii-T1jsVWeICHxAAABiW6_FWpMAAJIMwJcylYAAGJz991.png")
-        no-repeat;
-      font-family: "微软雅黑", Arial, Helvetica, sans-serif;
-      .lottery-tel {
-        position: absolute;
-        width: 430px;
-        height: 70px;
-        background: #fff;
-        border-radius: 3px;
-        top: 280px;
-        left: 40px;
-        font-size: 22px;
-        text-align: center;
-      }
-      .lottery-check-code {
-        position: absolute;
-        width: 200px;
-        height: 70px;
-        background: #fff;
-        border-radius: 3px;
-        top: 370px;
-        left: 40px;
-        font-size: 22px;
-        text-align: center;
-      }
-      .lottery-get-check {
-        position: absolute;
-        width: 210px;
-        height: 70px;
-        line-height: 70px;
-        background: #ffd925;
-        border-radius: 70px;
-        top: 370px;
-        left: 260px;
-        color: #ff404e;
-        font-size: 22px;
-        text-align: center;
-        &.sendingClass {
-          background: #333;
-          color: #fff;
-        }
-      }
-      .lottery-submit {
-        position: absolute;
-        width: 120px;
-        height: 120px;
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #d31616;
-        border-radius: 10px;
-        top: 280px;
-        right: 34px;
+  .lottery-apply {
+    position: relative;
+    width: 700px;
+    height: 506px;
+    background: url("https://m.tuniucdn.com/fb2/t1/G2/M00/74/D8/Cii-T1jsVWeICHxAAABiW6_FWpMAAJIMwJcylYAAGJz991.png")
+      no-repeat;
+    font-family: "微软雅黑", Arial, Helvetica, sans-serif;
+    .lottery-tel {
+      position: absolute;
+      width: 430px;
+      height: 70px;
+      background: #fff;
+      border-radius: 3px;
+      top: 280px;
+      left: 40px;
+      font-size: 22px;
+      text-align: center;
+    }
+    .lottery-check-code {
+      position: absolute;
+      width: 200px;
+      height: 70px;
+      background: #fff;
+      border-radius: 3px;
+      top: 370px;
+      left: 40px;
+      font-size: 22px;
+      text-align: center;
+    }
+    .lottery-get-check {
+      position: absolute;
+      width: 210px;
+      height: 70px;
+      line-height: 70px;
+      background: #ffd925;
+      border-radius: 70px;
+      top: 370px;
+      left: 260px;
+      color: #ff404e;
+      font-size: 22px;
+      text-align: center;
+      &.sendingClass {
+        background: #333;
         color: #fff;
-        font-size: 44px;
-        font-weight: 700;
-      }
-      .lottery-close-icon {
-        position: absolute;
-        top: 100px;
-        right: 0;
       }
     }
+    .lottery-submit {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #d31616;
+      border-radius: 10px;
+      top: 280px;
+      right: 34px;
+      color: #fff;
+      font-size: 44px;
+      font-weight: 700;
+    }
+    .lottery-close-icon {
+      position: absolute;
+      top: 100px;
+      right: 0;
+    }
   }
-  .hide {
-    display: none;
-  }
-}
 </style>
