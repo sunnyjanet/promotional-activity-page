@@ -1,17 +1,17 @@
 <template>
-  <div class="ProductCard">
+  <div class="ProductCard" @click="handleProdClick">
     <div class="product-img-wrapper">
-      <img class="product-img" src="https://m.tuniucdn.com/fb2/t1/G5/M00/3F/F6/Cii-tFpfCEWIYRSZAAZS2BLaaeUAACfRAGWEhEABlLw953_w450_h300_c1_t0.jpg"/>
+      <img class="product-img" :src="prodData.imgUrl"/>
       <div class="chufa">
-        <span>全国出发 | 跟团游</span>
+        <span>{{prodData.chufa}}</span>
       </div>
       <div class="prod-info">
-        <div class="prod-name">西安-芙蓉园-明城墙-大唐不夜城半自助3日游</div>
-        <div class="prod-intro">一场说走就走的美食之旅+聆听城墙上的故事+走一走大唐皇家园林+24小时接送/五星住宿/2人起订/6人小团</div>
+        <div class="prod-name">{{prodData.prodName}}</div>
+        <div class="prod-intro">{{prodData.prodIntro}}</div>
       </div>
     </div>
     <div class="product-price">
-      ￥<span>999</span>起
+      ￥<span>{{prodData.productPrice}}</span>起
     </div>
     <div class="buy-icon"></div>
   </div>
@@ -19,7 +19,20 @@
 
 <script>
 export default {
-  name: 'ProductCard'
+  name: 'ProductCard',
+  props: {
+    prodData: {
+      type: Object,
+      default () {
+        return {}
+      }
+    }
+  },
+  methods: {
+    handleProdClick () {
+      window.open(this.prodData.prodLinkUrl)
+    }
+  }
 }
 </script>
 
@@ -30,6 +43,7 @@ export default {
     height: 240px;
     background: #fff;
     border-radius: 5px;
+    overflow: hidden;
     .product-img-wrapper {
       position: relative;
       width: 240px;
@@ -56,7 +70,7 @@ export default {
         position: absolute;
         width: 228px;
         height: 46px;
-        background: rgba(0, 0, 0, 0.6);
+        background: rgba(0, 0, 0, 0.5);
         bottom: 0;
         left: 0;
         padding: 0 8px;

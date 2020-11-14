@@ -43,7 +43,7 @@ export default {
   methods: {
     getInfo () {
       axios
-        .get('mock/dataList.json')
+        .post('http://localhost:3001/get-nav-data-list')
         .then((res) => {
           res = res.data
           if (res.ret && res.data) {
@@ -59,6 +59,7 @@ export default {
     handleNavClick (index) {
       this.activeIndex = index
       this.moreCityShow = false
+      // commitmutation将点击的城市的名称和id保存在store里
     },
     handleMoreCitybtn () {
       this.moreCityShow = !this.moreCityShow
@@ -72,7 +73,9 @@ export default {
 
 <style lang="scss" scoped>
   .navBar {
-    width: 100%;
+    position: fixed;
+    z-index:  2001;
+    width: 1280px;
     background-color: #242424;
     .navList {
       position: relative;
@@ -104,7 +107,7 @@ export default {
       }
       .moreCityList {
         position: absolute;
-        z-index: 98;
+        z-index: 2001;
         right: 40px;
         top: 60px;
         background-color: #fff;
