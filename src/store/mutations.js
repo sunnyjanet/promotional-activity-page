@@ -1,13 +1,10 @@
 export default {
-  switchBlogIndex (state, clickedBlogId) {
-    state.clickedBlogIndex = clickedBlogId
+  changeActiveNavIndex (state, CityObj) {
+    state.activeCityObj = CityObj
+    console.log('已执行commit，state中的activeCityObj.id为', state.activeCityObj.id)
   },
-  switchActiveMenuIndex (state, clickedMenuIndex) {
-    state.activeMenuIndex = clickedMenuIndex.toString()
-    try {
-      localStorage.activeMenuIndex = clickedMenuIndex.toString()
-    } catch (e) {
-      console.error('使用localstorage出错', e)
-    }
+  getAllProducts (state, allProductsArr) {
+    state.allProductsArr = allProductsArr
+    console.log('已dispatch执行action，获得的产品列表为', state.allProductsArr)
   }
 }

@@ -30,18 +30,11 @@ import NavBar from '@/views/NavBar/NavBar'
 import BankFloor from '@/views/BankFloor/BankFloor'
 import ProductFloorOne from '@/views/ProductFloorOne/ProductFloorOne'
 import axios from 'axios'
-import qs from 'qs'
 export default {
   name: 'Home',
-  data () {
-    return {
-      allProductsArr: [] // 表示单个城市的所有楼层的数据
-    }
-  },
   computed: {
-    reqById () {
-      const reqById = { id: 0 }
-      return reqById
+    allProductsArr () {
+      return this.$store.state.allProductsArr
     }
   },
   components: {
@@ -50,22 +43,17 @@ export default {
     ProductFloorOne
   },
   methods: {
-    getAllProductsById () {
+    getDefaultCity () {
       axios
-        .post(
-          'http://localhost:3001/get-long-list-by-city',
-          qs.stringify(this.reqById)
-        )
+        .post('http://localhost:3001/get-default-city')
         .then((res) => {
-          this.allProductsArr = res.data.floorData || []
-        })
-        .catch((err) => {
-          console.error(err)
+          this.$store.commit('changeActiveNavIndex', res.data)
+          this.$store.dispatch('getAllProductsById')
         })
     }
   },
   created () {
-    this.getAllProductsById()
+    this.getDefaultCity()
   }
 }
 </script>

@@ -5,7 +5,7 @@
       class="navItem"
       v-for="item in navCityList"
       :key="item.id"
-      :class="item.id==activeIndex ? 'isActive' : ''"
+      :class="item.id==activeCityIndex ? 'isActive' : ''"
       size="medium"
       @click.native="handleNavClick(item.id)"
       >
@@ -17,7 +17,7 @@
         class="moreCityItem"
         v-for="item in navMoreCityList"
         :key="item.id"
-        :class="item.id==activeIndex ? 'isActive' : ''"
+        :class="item.id==activeCityIndex ? 'isActive' : ''"
         @click="handleNavClick(item.id)"
         >
         {{item.cityName}}
@@ -36,8 +36,12 @@ export default {
       navCityList: [],
       navCityCount: 13,
       navMoreCityList: [],
-      activeIndex: 0,
       moreCityShow: false
+    }
+  },
+  computed: {
+    activeCityIndex () {
+      return this.$store.state.activeCityObj.id
     }
   },
   methods: {
@@ -57,9 +61,9 @@ export default {
         })
     },
     handleNavClick (index) {
-      this.activeIndex = index
+      this.$store.commit('changeActiveNavIndex', { id: index })
+      this.$store.dispatch('getAllProductsById')
       this.moreCityShow = false
-      // commitmutation将点击的城市的名称和id保存在store里
     },
     handleMoreCitybtn () {
       this.moreCityShow = !this.moreCityShow

@@ -44,6 +44,23 @@ app.post('/get-nav-data-list', function (req, res) {
   })
 })
 
+app.post('/get-default-city', function (req, res) {
+  fs.readFile('public/mock/DefaultCity.json', 'utf-8', function (err, data) {
+    if (err) {
+      res.send({
+        code: '-1',
+        message: '读取文件失败',
+        data: {},
+        success: 0
+      })
+    } else {
+      const parseData = JSON.parse(data) || {}
+      const defaultCityData = parseData.data || []
+      res.send(defaultCityData[0]) // 传入的是对象，例如{id: 1}
+    }
+  })
+})
+
 app.post('/get-long-list-by-city', function (req, res) {
   const body = req.body || {}
   const id = body.id || 0
